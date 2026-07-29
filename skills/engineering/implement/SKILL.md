@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 Implement the work described by the user in the spec or tickets.
 
-When implementing a ticket, read its **Working branch** before changing code. Start only when its blockers have landed. Switch to the named branch if it exists; otherwise create it from the updated default branch. The branch is ready when `git branch --show-current` exactly matches the ticket.
+When implementing a ticket, read its **Working branch** before changing code. Start only when its blockers are complete on that branch. Switch to the named branch if it exists; otherwise create it from the updated default branch. The branch is ready when `git branch --show-current` exactly matches the ticket.
 
 Use /tdd where possible, at pre-agreed seams.
 

@@ -26,7 +26,7 @@ Reach for it once the work is written down as a spec or split into tickets and y
 
 The idea `implement` runs on is the **seam** — the stable interface a feature is tested at, chosen before any code is written. It doesn't invent seams mid-build; it uses the ones already picked (during [to-spec](https://aihero.dev/skills-to-spec)) and writes tests against them via [tdd](https://aihero.dev/skills-tdd). Working at pre-agreed seams is what keeps the implementation honest: the tests target something durable, so the code underneath can move without the tests moving.
 
-Around that core it keeps the loop tight — verify the ticket's blockers have landed, switch to or create its declared working branch, typecheck often, run single test files as it goes, run the whole suite once at the end — then close out with a review pass and a commit to that branch.
+Around that core it keeps the loop tight — verify the ticket's blockers are complete on the shared working branch, switch to or create that branch, typecheck often, run single test files as it goes, run the whole suite once at the end — then close out with a review pass and a commit to that branch.
 
 ## Where it fits
 

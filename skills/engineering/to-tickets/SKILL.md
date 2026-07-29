@@ -37,7 +37,7 @@ Break the work into **tracer bullet** tickets.
 
 Give each ticket its **blocking edges** — the other tickets that must complete before it can start. A ticket with no blockers can start immediately.
 
-Give every ticket its own **working branch**. Name it `ticket/<feature-slug>/<NN>-<ticket-slug>` so the branch is known before the ticket is published and remains unique within the repository. A dependent ticket still gets its own branch and starts only after its blockers have landed.
+Give the ticket set one **working branch**. Name it `feature/<feature-slug>` and put it in every ticket so the branch is known before the tickets are published. Tickets from the same plan or dependency chain share that branch and are implemented in dependency order.
 
 **Wide refactors are the exception to vertical slicing.** A **wide refactor** is one mechanical change — rename a column, retype a shared symbol — whose **blast radius** fans across the whole codebase, so a single edit breaks thousands of call sites at once and no vertical slice can land green. Don't force it into a tracer bullet; sequence it as **expand–contract**. First expand: add the new form beside the old so nothing breaks. Then migrate the call sites over in batches sized by blast radius (per package, per directory), each batch its own ticket blocked by the expand, keeping CI green batch to batch because the old form still exists. Finally contract: delete the old form once no caller remains, in a ticket blocked by every migrate batch. When even the batches can't stay green alone, sequence them so each ticket starts after the previous branch has landed, then finish with an integrate-and-verify ticket.
 
@@ -47,7 +47,7 @@ Present the proposed breakdown as a numbered list. For each ticket, show:
 
 - **Title**: short descriptive name
 - **Blocked by**: which other tickets (if any) must complete first
-- **Working branch**: the ticket's unique branch name
+- **Working branch**: the shared branch for this ticket set
 - **What it delivers**: the end-to-end behaviour this ticket makes work
 
 Ask the user:
@@ -62,8 +62,8 @@ Iterate until the user approves the breakdown.
 
 Publish the approved tickets. **How** depends on the tracker `/setup-matt-pocock-skills` configured — the tickets are the same either way, only the shape of the blocking edges changes:
 
-- **Local files** → write one file per ticket under `.scratch/<feature-slug>/issues/<NN>-<slug>.md`, numbered from `01` in dependency order (blockers first). Each file's "Blocked by" lists the numbers/titles it depends on and its "Working branch" names its unique branch. Use the per-ticket file template below — one ticket per file, never a single combined file.
-- **A real issue tracker (GitHub, Linear, …)** → publish one issue per ticket in dependency order (blockers first) so each ticket's blocking edges can reference real identifiers. Put the unique working branch in every issue. Use the platform's native blocking / sub-issue relationship where it has one; otherwise set each ticket's "Blocked by" to the blocking issues. Apply the `ready-for-agent` triage label unless instructed otherwise — the tickets are agent-grabbable by construction.
+- **Local files** → write one file per ticket under `.scratch/<feature-slug>/issues/<NN>-<slug>.md`, numbered from `01` in dependency order (blockers first). Each file's "Blocked by" lists the numbers/titles it depends on and its "Working branch" names the ticket set's shared branch. Use the per-ticket file template below — one ticket per file, never a single combined file.
+- **A real issue tracker (GitHub, Linear, …)** → publish one issue per ticket in dependency order (blockers first) so each ticket's blocking edges can reference real identifiers. Put the shared working branch in every issue. Use the platform's native blocking / sub-issue relationship where it has one; otherwise set each ticket's "Blocked by" to the blocking issues. Apply the `ready-for-agent` triage label unless instructed otherwise — the tickets are agent-grabbable by construction.
 
 Work the **frontier**: any ticket whose blockers are all done. For a purely linear chain that means top to bottom.
 
@@ -77,7 +77,7 @@ Do NOT close or modify any parent issue.
 
 **Blocked by:** the numbers/titles of the tickets that gate this one, or "None — can start immediately".
 
-**Working branch:** `ticket/<feature-slug>/<NN>-<ticket-slug>`
+**Working branch:** `feature/<feature-slug>`
 
 **Status:** ready-for-agent
 
@@ -103,7 +103,7 @@ The end-to-end behaviour this ticket makes work, from the user's perspective —
 
 ## Working branch
 
-`ticket/<feature-slug>/<NN>-<ticket-slug>`
+`feature/<feature-slug>`
 
 ## Blocked by
 
