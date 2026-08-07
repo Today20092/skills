@@ -1,0 +1,7 @@
+interface:
+  display_name: "Complete Ticket Map"
+  short_description: "Orchestrate dependent tickets to completion"
+  default_prompt: "Use $complete-ticket-map to orchestrate a ticket set through implementation and closure."
+
+policy:
+  allow_implicit_invocation: false
