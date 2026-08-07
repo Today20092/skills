@@ -12,7 +12,7 @@ npx skills update complete-ticket-map
 
 ## What it does
 
-`complete-ticket-map` runs a dependency-linked ticket set to completion. It discovers the graph, shows a status-colored Mermaid map, dispatches ready tickets into separate implementation tasks, verifies their handoffs, integrates finished branches, and advances the newly unblocked frontier.
+`complete-ticket-map` runs a dependency-linked ticket set to completion. It discovers the graph, shows a mobile-friendly ASCII status map, dispatches ready tickets into separate implementation tasks, verifies their handoffs, integrates finished branches, and advances the newly unblocked frontier.
 
 The orchestrator remains a control tower rather than becoming another implementation session. Workers retain code exploration and command output; the parent keeps only compact state, decisions, and exceptions.
 

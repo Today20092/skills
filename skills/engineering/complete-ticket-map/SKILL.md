@@ -27,24 +27,22 @@ Validate that dependencies exist and the graph is acyclic. Derive these states:
 - `attention`: needs a user decision or external authority
 - `failed`: worker stopped after in-scope recovery attempts
 
-Render a Mermaid graph before dispatch. Use this palette every time:
+Render a narrow ASCII dependency graph before dispatch. Use this status legend every time:
 
-```mermaid
-flowchart LR
-  done["01 Done"]:::done --> active["02 Active"]:::active
-  active --> ready["03 Ready"]:::ready
-  ready --> blocked["04 Blocked"]:::blocked
-  attention["05 Needs input"]:::attention
-  failed["06 Failed"]:::failed
-  classDef done fill:#DCFCE7,stroke:#15803D,color:#14532D
-  classDef active fill:#DBEAFE,stroke:#2563EB,color:#1E3A8A
-  classDef ready fill:#FEF3C7,stroke:#D97706,color:#78350F
-  classDef blocked fill:#F3F4F6,stroke:#6B7280,color:#374151
-  classDef attention fill:#FCE7F3,stroke:#DB2777,color:#831843
-  classDef failed fill:#FEE2E2,stroke:#DC2626,color:#7F1D1D
+```text
+[x] done       [>] active      [+] ready
+[-] blocked    [?] attention   [!] failed
+
+[x] 01 Foundation
+  |
+  +--> [>] 02 API
+  |      |
+  |      +--> [-] 04 Integration
+  |
+  +--> [+] 03 UI
 ```
 
-Use safe Mermaid node IDs distinct from ticket labels. Label edges only when the dependency meaning is not obvious. For more than 30 tickets, render phase/subgraph summaries plus the active frontier instead of a wall of nodes.
+Keep labels short enough for a mobile screen. Show dependencies with `|`, `+-->`, and indentation; add a short edge label only when its meaning is not obvious. For more than 30 tickets, render phase summaries plus the active frontier instead of every ticket.
 
 Complete this step when the displayed graph accounts for every selected ticket and its execution state.
 
@@ -85,12 +83,12 @@ On a worker result:
 3. Recompute the graph from authoritative state.
 4. Dispatch newly ready tickets.
 
-Post a colored map only after a meaningful state transition: dispatch, completion, failure, attention request, or newly unblocked frontier. Do not narrate unchanged waits. Keep prose beside each map to three short bullets: completed, active, and attention.
+Post an ASCII map only after a meaningful state transition: dispatch, completion, failure, attention request, or newly unblocked frontier. Do not narrate unchanged waits. Keep prose beside each map to three short bullets: completed, active, and attention.
 
 Complete the loop when every selected ticket is `done`, or progress requires a user decision. Continue automatically after recoverable worker failures by retrying only the failed ticket with the failure evidence.
 
 ## 6. Finish or hand off
 
-At full completion, show the final colored map and report integrated branch, ticket count, verification result, and any pre-existing failures. At an attention boundary, show the current map, state the exact blocked decision in one question, and preserve all completed work.
+At full completion, show the final ASCII map and report integrated branch, ticket count, verification result, and any pre-existing failures. At an attention boundary, show the current ASCII map, state the exact blocked decision in one question, and preserve all completed work.
 
 The run is complete only when every selected ticket is closed, integrated, and covered by the required verification—not merely implemented in an unmerged worker branch.
