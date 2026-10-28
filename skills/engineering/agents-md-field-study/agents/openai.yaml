@@ -1,0 +1,7 @@
+interface:
+  display_name: "AGENTS.md Field Study Review"
+  short_description: "Review and improve project AGENTS.md guidance"
+  default_prompt: "Use $agents-md-field-study to review this project's AGENTS.md files and recommend evidence-based improvements."
+
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Everything Search"
+  short_description: "Search and configure Everything on Windows"
+  default_prompt: "Use $everything-search to find files or manage Everything searches, bookmarks, filters, and layout on this Windows PC."
