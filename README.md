@@ -23,6 +23,7 @@ Add `--global` to install across projects. The installer lets you choose a suppo
 | Skill | Purpose |
 | --- | --- |
 | [agents-md-field-study](skills/engineering/agents-md-field-study/SKILL.md) | Review project agent instructions against a field study, then apply the improvements you select. |
+| [google-rust-guidelines](skills/engineering/google-rust-guidelines/SKILL.md) | Apply Google's Rust guidance to implementation, API design, and review while respecting project conventions and platform-specific exceptions. |
 
 ## Productivity
 
@@ -45,8 +46,6 @@ Use a lowercase, hyphenated skill name and describe its purpose and activation c
 
 This collection brings together the skills formerly maintained in `skills-making`, `everything-search-skill`, and `obsidian-cli`. The inherited Matt Pocock catalog and ticket-workflow customizations have been removed from the current collection. Existing Git history is preserved.
 
-The Google Rust guidelines skill is under consideration; it has not been added yet.
-
 ## License
 
-[MIT](LICENSE). The Obsidian CLI skill also retains its [original copyright notice](skills/productivity/obsidian-cli/LICENSE). Source acknowledgments and third-party documentation links remain with each skill.
+The repository's original material is [MIT licensed](LICENSE), except where a skill specifies otherwise. [Google Rust Guidelines](skills/engineering/google-rust-guidelines/references/sources.md) is an attributed adaptation under [CC BY 3.0](skills/engineering/google-rust-guidelines/LICENSE). The Obsidian CLI skill retains its [original copyright notice](skills/productivity/obsidian-cli/LICENSE). Source acknowledgments and third-party documentation links remain with each skill.

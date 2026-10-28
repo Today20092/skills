@@ -1,0 +1,4 @@
+interface:
+  display_name: "Google Rust Guidelines"
+  short_description: "Apply Google's Rust guidance in project context"
+  default_prompt: "Use $google-rust-guidelines to review this Rust change against the applicable guidance and project conventions."
