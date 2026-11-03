@@ -23,6 +23,7 @@ Add `--global` to install across projects. The installer lets you choose a suppo
 | Skill | Purpose |
 | --- | --- |
 | [agents-md-field-study](skills/engineering/agents-md-field-study/SKILL.md) | Review project agent instructions against a field study, then apply the improvements you select. |
+| [astral-python](skills/engineering/astral-python/SKILL.md) | Build and maintain Python projects with Astral's uv, Ruff, and ty toolchain. |
 | [google-rust-guidelines](skills/engineering/google-rust-guidelines/SKILL.md) | Apply Google's Rust guidance to implementation, API design, and review while respecting project conventions and platform-specific exceptions. |
 
 ## Productivity

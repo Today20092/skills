@@ -1,0 +1,4 @@
+interface:
+  display_name: "Astral Python"
+  short_description: "Use uv, Ruff, and ty for Python projects"
+  default_prompt: "Use $astral-python to set up or maintain this Python work with uv, Ruff, and ty."
