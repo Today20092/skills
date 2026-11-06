@@ -25,6 +25,7 @@ Add `--global` to install across projects. The installer lets you choose a suppo
 | [agents-md-field-study](skills/engineering/agents-md-field-study/SKILL.md) | Review project agent instructions against a field study, then apply the improvements you select. |
 | [astral-python](skills/engineering/astral-python/SKILL.md) | Build and maintain Python projects with Astral's uv, Ruff, and ty toolchain. |
 | [google-rust-guidelines](skills/engineering/google-rust-guidelines/SKILL.md) | Apply Google's Rust guidance to implementation, API design, and review while respecting project conventions and platform-specific exceptions. |
+| [web-ui-accessibility](skills/engineering/web-ui-accessibility/SKILL.md) | Design, improve, or audit reusable website sections, page layouts, consistency, usability, and WCAG 2.2 AA accessibility. Invoke explicitly with `$web-ui-accessibility`. |
 
 ## Productivity
 
