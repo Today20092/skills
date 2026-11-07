@@ -20,6 +20,8 @@ Add `--global` to install across projects. The installer lets you choose a suppo
 
 ## Engineering
 
+Use [$project-tool-fit](skills/engineering/project-tool-fit/SKILL.md) to assess Oxc and other FOSS tools against a project's needs, explain the tradeoffs, and offer a verified setup. Includes [research covering all 68 public Oxc repositories](skills/engineering/project-tool-fit/references/oxc-and-foss-tool-fit.md).
+
 | Skill | Purpose |
 | --- | --- |
 | [agents-md-field-study](skills/engineering/agents-md-field-study/SKILL.md) | Review project agent instructions against a field study, then apply the improvements you select. |
