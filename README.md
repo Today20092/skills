@@ -26,7 +26,7 @@ Use [$project-tool-fit](skills/engineering/project-tool-fit/SKILL.md) to assess 
 | --- | --- |
 | [agents-md-field-study](skills/engineering/agents-md-field-study/SKILL.md) | Review project agent instructions against a field study, then apply the improvements you select. |
 | [astral-python](skills/engineering/astral-python/SKILL.md) | Build and maintain Python projects with Astral's uv, Ruff, and ty toolchain. |
-| [git-cleanup](skills/engineering/git-cleanup/SKILL.md) | Review uncertain work with a small model, then preview and approve local Git cleanup through a deterministic script. |
+| [git-cleanup](skills/engineering/git-cleanup/SKILL.md) | Automatically clean finished local Git work, with model review of uncertain items and a concise findings report. |
 | [google-rust-guidelines](skills/engineering/google-rust-guidelines/SKILL.md) | Apply Google's Rust guidance to implementation, API design, and review while respecting project conventions and platform-specific exceptions. |
 | [web-ui-accessibility](skills/engineering/web-ui-accessibility/SKILL.md) | Design, improve, or audit reusable website sections, page layouts, consistency, usability, and WCAG 2.2 AA accessibility. Invoke explicitly with `$web-ui-accessibility`. |
 

@@ -10,7 +10,7 @@ For each item, give one outcome and cite the relevant commit, PR, task, or path:
 | REMOVE recommendation | Evidence indicates completed duplicate work, or the user has identified an abandoned task. Disclose unique commits that would be discarded. |
 | ASK | Intent or ownership remains unclear after targeted inspection. |
 
-Compare apparently duplicate branches by commits and diffs. A similar name, age, missing upstream, or matching PR title is only a lead. For merged PRs, check the target base and head SHA against the current local tip; later local commits still need review. A closed PR alone does not establish that its work is disposable.
+Compare apparently duplicate branches by commits and diffs. A similar name, age, missing upstream, successful push, or matching PR title is only a lead. For merged PRs, check the target base and head SHA against the current local tip; later local commits still need review. A closed PR alone does not establish that its work is disposable. Automatically apply script-proven finished work after stating the plan; reserve permission questions for discarding unmerged work or resolving unclear intent.
 
 For clean worktrees, inspect available task/session records. Absence of a visible process does not prove inactivity. Ask about uncertain ownership before recommending removal. Keep dirty, locked, primary/current, and operation-in-progress worktrees; `--discard` does not override these checks.
 
