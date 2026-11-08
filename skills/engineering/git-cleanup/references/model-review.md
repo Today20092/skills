@@ -18,4 +18,4 @@ Inspect extra folders only within the user's requested scope. Check whether they
 
 For an unmerged branch recommended for abandonment, record its full tip SHA and unique commit count, then include `--discard <branch>` in a new preview. Approval must cover losing that named branch's unique work. Apply the identical options and plan ID through the script. Treat changed state as a new plan.
 
-Use a stronger available model only for an unresolved comparison that could change the recommendation. Give it the item, evidence, and precise question. If evidence or user intent is still missing, return ASK and retain the item.
+Resolve comparisons in the current session. If evidence or user intent is still missing, return ASK and retain the item.
