@@ -1,30 +1,41 @@
 ---
 name: project-tool-fit
 description: >-
-  Assess Oxc and other FOSS tools against a project's needs, existing checks and compatibility. Use for tool recommendations, toolchain assessments, AI-agent feedback improvements, or deciding whether to adopt or replace project tooling.
+  Guardrail a project's toolchain: assess and apply the formatters, linters, type checks, tests and architecture rules that keep any stack maintainable under agent coding. Use for tool recommendations, toolchain audits, agent-feedback improvements, or adopt/replace decisions on project tooling.
 ---
 
 # Project tool fit
 
-Assess which tools would improve this project. Recommend the smallest useful change, explain it in the user's terms, and offer a concrete setup.
+Find where agents can drift in this project, and turn each costly drift into a **guardrail**: a check that fails with a clear fix, so the next agent corrects itself. Recommend the smallest useful set, explain it in the user's terms, and apply what the user picks.
 
 ## 1. Establish the project and need
 
-Read the project's agent instructions and glossary. Follow `GLOSSARY-MAP.md` to the relevant `GLOSSARY.md` when present. Inspect the manifests, actual file types and check commands relevant to the request. Follow into resolved lockfiles, workspaces, CI, tool configs and constraints where they could change the decision. Use structural code discovery when relationships matter.
+Read the project's agent instructions, glossary and ADRs in `docs/adr/`. Follow `GLOSSARY-MAP.md` to the relevant `GLOSSARY.md` when present. Inspect the manifests, actual file types and check commands relevant to the request. Follow into resolved lockfiles, workspaces, CI, tool configs and constraints where they could change the decision. Use structural code discovery when relationships matter.
 
-Record the scope, current tools and their responsibilities, and the problem each candidate would solve. Separate observed failures/timings from suspected gaps. For a new project, use its intended workflows and risks as the baseline and label assumptions. If several projects are requested, assess each separately and identify shared recommendations afterward.
+Record the scope, stack, current tools and their responsibilities. Separate observed failures/timings from suspected gaps. For a new project, use its intended workflows and risks as the baseline and label assumptions. If several projects are requested, assess each separately and identify shared recommendations afterward.
 
-Done when each investigated need has a project fact or an explicit assumption. A working existing setup is a valid outcome. When sufficient evidence supports keeping it, and the user did not request a survey or replacement comparison, give an early keep/skip result with the evidence limits. Resume candidate research when a gap or comparison warrants it.
+Done when each investigated need has a project fact or an explicit assumption.
 
-## 2. Research candidates by need
+## 2. Find the drift
 
-For JS/TS tooling assessment, read the relevant sections of [Oxc and FOSS research](references/oxc-and-foss-tool-fit.md): the tool and compatibility sections for ordinary applications; component/integration sections for compiler, bundler, editor or AST-tool projects; the inventory for organization-wide requests. The 68-repository inventory is a dated snapshot, not a required installation list.
+For a question about one named tool or replacement, go straight to step 3.
 
-Research other FOSS tools for the needs found in step 1, including needs outside Oxc's scope. The reference's alternatives table is a starting point, not a closed catalog. Examples of branches:
-- Code feedback: linting, formatting, type checks, tests, unused dependencies and public exports.
-- Product behavior: browser flows, accessibility, performance and diagnostics.
-- Delivery: dependency risk, containers, reproducible environments, tool versions and repeated tasks.
-- Data/search: storage, analytical queries, transcripts or retrieval, only when these are actual project needs.
+If the user named a pain point, start there. Otherwise walk back a good stretch of `git log` to find hot spots, and weight them first. Look for friction an agent would hit or cause:
+
+- Rules in agent instructions, READMEs or review comments that a tool could enforce. Each one is a guardrail candidate.
+- Commits that repair style, imports, types or previously working behavior.
+- Conventions the code follows only in places: error handling, data validation, file layout, design tokens, component use.
+- Dependencies that cross module seams, duplicated helpers, dead exports.
+- Escape hatches: `any`, `@ts-ignore`, disabled rules, skipped tests, and their recent growth.
+- Checks that are slow, need a person, hang in watch mode, or fail without saying what to change.
+
+Read [Agent guardrails](references/agent-guardrails.md) and mark each layer **covered**, **gap** or **not applicable**, with project evidence.
+
+Done when every layer is marked. A working setup is a valid outcome: when the evidence shows the layers are covered and the user did not request a survey or replacement comparison, give an early keep/skip result with the evidence limits.
+
+## 3. Research candidates by need
+
+Use the guardrails reference for per-stack starting points. For JS/TS tooling, read the relevant sections of [Oxc and FOSS research](references/oxc-and-foss-tool-fit.md): the tool and compatibility sections for ordinary applications; component/integration sections for compiler, bundler, editor or AST-tool projects; the inventory for organization-wide requests. Both references are dated starting points, not closed catalogs or installation lists.
 
 Use the installed documentation skill/Context7 for current library and CLI docs when available; otherwise consult owning docs and source. Use official repositories, package-specific releases, manifests, licenses and issue/release notes for evidence. Research the strongest plausible alternatives to a proposed replacement and compare keeping the current tool. Stop expanding a category once its need has a defensible choice. Browse more broadly when the user asks for a comprehensive survey, stating the surveyed scope.
 
@@ -32,7 +43,7 @@ Refresh material claims for shortlisted tools: supported versions and file types
 
 Done when each shortlist entry has current evidence for its required capabilities and license, or a named evidence gap that limits the recommendation.
 
-## 3. Decide fit
+## 4. Decide fit
 
 Map the current responsibility to candidate coverage, gaps and the tool that will retain responsibility. Apply these checks where relevant:
 - Separate script linting, framework/template rules, semantic linting, compiler diagnostics, declaration builds, formatting and rendered accessibility.
@@ -41,32 +52,46 @@ Map the current responsibility to candidate coverage, gaps and the tool that wil
 - Check Node's existing capabilities and the current build pipeline before adding a runner, transformer, parser, resolver or minifier. Ordinary apps may already use these indirectly.
 - Check dynamic loading and published entry points before acting on unused-code reports.
 - Treat experimental replacements as bounded trials. Upstream benchmarks and compatibility goals are hypotheses until verified on this project.
-- Prefer existing commands and pinned local tools. Evaluate agent usability through reproducible noninteractive runs, clear exit codes, useful diagnostics and verified structured reports where supported. Check mode and write/fix mode have different effects. Avoid watch mode for a one-time agent check.
+- Prefer existing commands and pinned local tools. Apply the agent-usability test in the guardrails reference. Check mode and write/fix mode have different effects.
 - Include setup, maintenance, execution cost and lost coverage in the decision. A second tool must fill a gap or produce a measured benefit.
+- Honor ADRs. Surface a candidate that contradicts one only when the friction warrants reopening it, and say so.
 
 Assign **adopt**, **trial**, **keep**, or **skip**. A trial states the uncertainty, representative test and pass condition. Recommend speed improvements as measured only after a comparable local baseline; otherwise say the speed benefit is unverified.
 
 Done when every recommendation names its benefit, existing overlap, material limit and verification method. Keep uncertain tools out of an unconditional adoption recommendation.
 
-## 4. Explain and offer setup
+## 5. Report and ask
 
-Use the user's wait-what style: give the missing context first, then use short sentences, familiar verbs and project glossary terms. Explain technical terms when first needed. Aim for ASD-STE100-style clarity without claiming formal compliance. This behavior is self-contained; another installed skill is not required.
+Write in wait-what style: the missing context first, then short sentences, familiar verbs and project glossary terms, with each technical term explained where it first appears.
 
-Lead with the decision and why it matters to this project. Show only the strongest recommendations and significant keep/skip decisions in the main answer. Put an extensive requested survey in a linked research artifact using the project's documentation convention.
+For a question about one tool, answer in the conversation. For a project assessment, write a self-contained HTML file to the OS temp directory as `tool-fit-<timestamp>.html`, so nothing lands in the repo. Open it and give the absolute path. Lead with the coverage map of guardrail layers, then one card per recommendation, strongest first, and end with a **Top recommendation**: what to apply first and why.
 
-For each proposed tool give:
-- **Project evidence:** the file, workflow, gap or measured cost.
-- **Benefit:** a concrete improvement for the user and, when relevant, the AI agent.
+Each recommendation carries:
+- **Verdict:** adopt, trial, keep or skip, as a badge.
+- **Drift prevented:** the project evidence: file, commit, workflow, gap or measured cost.
+- **Before / after:** what an agent can do wrong today, and what it sees once the guardrail exists.
+- **Benefit:** the concrete gain for future maintenance and for the agent.
 - **Tradeoff:** overlap, migration effort, compatibility or operational limits.
 - **Next step:** the smallest trial/setup, affected files, validation and rollback.
 - **Source/confidence:** primary evidence; distinguish documented capability from local proof.
 
-When recommending a change, close with a specific setup offer, such as “I can add Oxlint to the existing check command and retain the template accessibility checks.” For a keep/skip result, explain why no setup is needed. Assessment authorizes investigation and recommendations. If setup is already requested or authorized, proceed within that scope instead of asking again.
+Then ask: "Which of these would you like to apply?" For a keep/skip result, explain why no setup is needed. When setup was already requested, proceed within that scope.
 
-## 5. Set up when requested
+## 6. Apply what the user picks
 
-Use the existing package manager and project conventions. Make only the selected dependency, config, script and CI changes; configure editor integration when requested. Prepare a reviewable diff and preserve existing coverage until the replacement passes the stated comparison. Keep bulk formatting separate where practical. Explain any unavoidable output changes.
+Grill the user first (use the grilling skill when available) on any pick that changes how code is written, such as a typed-effect library or new layering rules: scope, first module, what stays out.
 
-Run the relevant checks and compare diagnostics, representative formatting, builds/declarations or runtime behavior according to the replacement's contract. For performance claims, measure comparable commands and disclose cache/environment differences. Report what changed, what passed, skipped checks and remaining risk. Global installations and external service changes require authorization within their actual scope.
+When the user rejects a candidate for a reason a future run would need, offer an ADR: "Want me to record this so future tool reviews don't re-suggest it?"
 
-Done when the selected setup is verified or its blocking evidence is explicit. Stop once the project's identified needs are covered.
+Apply one guardrail at a time, with the existing package manager and project conventions. Change only the selected dependency, config, script and CI files; add editor integration when requested. Preserve existing coverage until the replacement passes the stated comparison. Keep bulk formatting in its own commit where practical, and explain any unavoidable output changes.
+
+For each guardrail:
+1. Run it on the project and record the existing violations.
+2. Ratchet: fix them when few, otherwise baseline them so new code must pass and old code can only improve.
+3. Add it to the project's single check command, then to the hooks and CI the project uses.
+4. Prove it goes **red**: introduce one representative violation, confirm the failure names the fix, and revert it.
+5. Replace the matching prose in agent instructions with a pointer to the check command. Leave instructions that no tool enforces.
+
+For performance claims, measure comparable commands and disclose cache/environment differences. Report what changed, what passed, skipped checks and remaining risk. Global installations and external service changes require authorization within their actual scope.
+
+Done when each picked guardrail has gone red and then green, or its blocking evidence is explicit. Stop once the picks are applied.
