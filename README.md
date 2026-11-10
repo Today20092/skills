@@ -22,20 +22,21 @@ Add `--global` to install across projects. The installer lets you choose a suppo
 
 Use [$project-tool-fit](skills/engineering/project-tool-fit/SKILL.md) to find where agents can drift in any stack, recommend the formatters, linters, type checks, tests and architecture rules that stop it, and apply the ones you pick. Includes [per-stack guardrails](skills/engineering/project-tool-fit/references/agent-guardrails.md) and [research covering all 68 public Oxc repositories](skills/engineering/project-tool-fit/references/oxc-and-foss-tool-fit.md).
 
-| Skill | Purpose |
-| --- | --- |
-| [agents-md-field-study](skills/engineering/agents-md-field-study/SKILL.md) | Review project agent instructions against a field study, then apply the improvements you select. |
-| [astral-python](skills/engineering/astral-python/SKILL.md) | Build and maintain Python projects with Astral's uv, Ruff, and ty toolchain. |
+| Skill                                                                        | Purpose                                                                                                                                                                                                                    |
+| ---------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [agents-md-field-study](skills/engineering/agents-md-field-study/SKILL.md)   | Review project agent instructions against a field study, then apply the improvements you select.                                                                                                                           |
+| [astral-python](skills/engineering/astral-python/SKILL.md)                   | Build and maintain Python projects with Astral's uv, Ruff, and ty toolchain.                                                                                                                                               |
 | [git-cleanup](skills/engineering/git-cleanup/SKILL.md) | Automatically clean finished local Git work, with model review of uncertain items and a concise findings report. |
-| [google-rust-guidelines](skills/engineering/google-rust-guidelines/SKILL.md) | Apply Google's Rust guidance to implementation, API design, and review while respecting project conventions and platform-specific exceptions. |
-| [web-ui-accessibility](skills/engineering/web-ui-accessibility/SKILL.md) | Design, improve, or audit reusable website sections, page layouts, consistency, usability, and WCAG 2.2 AA accessibility. Invoke explicitly with `$web-ui-accessibility`. |
+| [google-rust-guidelines](skills/engineering/google-rust-guidelines/SKILL.md) | Apply Google's Rust guidance to implementation, API design, and review while respecting project conventions and platform-specific exceptions.                                                                              |
+| [web-ui-accessibility](skills/engineering/web-ui-accessibility/SKILL.md)     | Design, improve, or audit reusable website sections, page layouts, consistency, usability, and WCAG 2.2 AA accessibility. Invoke explicitly with `$web-ui-accessibility`.                                                  |
+| [website-analytics](skills/engineering/website-analytics/SKILL.md)           | Set up or migrate Cloudflare Web Analytics, verify collection and private-page exclusions, and optionally connect search visibility reports. [Research and alternatives](research/website-analytics-skills-2026-11-06.md). |
 
 ## Productivity
 
-| Skill | Purpose |
-| --- | --- |
+| Skill                                                               | Purpose                                                                                                                                                           |
+| ------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [everything-search](skills/productivity/everything-search/SKILL.md) | Search the Windows Everything index and work with its query language, saved searches, GUI commands, and SDK. [Requirements and usage](docs/everything-search.md). |
-| [obsidian-cli](skills/productivity/obsidian-cli/SKILL.md) | Operate Obsidian vaults through the official CLI. [Requirements and usage](docs/obsidian-cli.md). |
+| [obsidian-cli](skills/productivity/obsidian-cli/SKILL.md)           | Operate Obsidian vaults through the official CLI. [Requirements and usage](docs/obsidian-cli.md).                                                                 |
 
 ## Categories
 
