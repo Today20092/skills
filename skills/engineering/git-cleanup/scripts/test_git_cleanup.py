@@ -48,6 +48,16 @@ with tempfile.TemporaryDirectory() as tmp:
         git(repo, "merge", "--no-ff", name, "-m", "merge " + name)
     git(repo, "merge", "--squash", "squash")
     git(repo, "commit", "-m", "squash")
+    # Squash edited during merge: patch-ids differ, so only the simulated merge proves it.
+    git(repo, "checkout", "-b", "edited", "main")
+    commit(repo, "edited1")
+    git(repo, "checkout", "main")
+    git(repo, "merge", "--squash", "edited")
+    commit(repo, "edited-extra")
+    # Same files as main but different commits: proven by tree equality.
+    git(repo, "checkout", "-b", "sametree", "main")
+    git(repo, "commit", "--allow-empty", "-m", "empty")
+    git(repo, "checkout", "main")
     git(repo, "branch", "fresh")
     git(repo, "worktree", "add", os.path.join(tmp, "wt-dirty"), "dirty")
     git(repo, "worktree", "add", os.path.join(tmp, "wt-clean"), "clean")
@@ -80,8 +90,10 @@ with tempfile.TemporaryDirectory() as tmp:
             line.strip().startswith(kind) and f"branch {name}" in line for line in lines
         )
 
-    for name in ("merged", "squash", "clean"):
+    for name in ("merged", "squash", "edited", "sametree", "clean"):
         assert row("REMOVE", name), name
+    assert "merge adds nothing" in preview.stdout
+    assert "same files" in preview.stdout
     for name in ("active", "dirty", "fresh", "ignored", "locked"):
         assert row("KEEP", name), name
     assert not any("branch main" in line for line in lines)

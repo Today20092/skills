@@ -14,7 +14,7 @@ Run this workflow directly in the current session. Use the script for Git checks
 4. Present the concise plan using the report format below, then apply proven finished work automatically in the same run. The user's cleanup request authorizes removal of merged branches, eligible old empty branches, clean finished worktrees, and stale records. A pushed branch alone is not finished: retain it unless merge evidence exists. Honor an explicit preview-only request.
 5. Keep uncertain items out of the automatic cleanup. Ask only about named unmerged work that the model recommends discarding. After explicit approval, preview again with a separate `--discard <branch>` for each approved name, disclose its unique commits, and apply that plan. This option retains worktree blockers and protected branches.
 
-Done when the user can identify every proposed removal. Keep uncertain work. A missing upstream alone is not merge evidence. Protected integration/release branches are excluded. Squash/rebase evidence uses patch equivalence; squash lookup is bounded to the last 1,000 base commits.
+Done when the user can identify every proposed removal. Keep uncertain work. A missing upstream alone is not merge evidence. Protected integration/release branches are excluded. Merge evidence, in order: tip in base history, identical file trees, every commit patch-equivalent (rebase), a simulated merge that changes no files (`git merge-tree`, Git 2.38+; skipped on older Git), then a squash patch-id match bounded to the last 1,000 base commits.
 
 ## Apply
 

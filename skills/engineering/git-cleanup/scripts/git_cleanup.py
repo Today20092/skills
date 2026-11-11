@@ -103,7 +103,10 @@ def evidence(repo, base, tip, branch):
     """Return (is_merged, reason). Merged means the work is already in `base`."""
     if git(repo, "merge-base", "--is-ancestor", tip, base).returncode == 0:
         return True, f"merged: tip is in {base}"
-    mb = out(repo, "merge-base", base, tip)
+    base_tree = out(repo, "rev-parse", f"{base}^{{tree}}")
+    if out(repo, "rev-parse", f"{tip}^{{tree}}") == base_tree:
+        return True, f"same files: tip tree equals {base}"
+    mb = git(repo, "merge-base", base, tip).stdout.strip()
     if mb:
         cherry = out(repo, "cherry", base, tip).splitlines()
         if cherry and all(line.startswith("-") for line in cherry):
@@ -111,6 +114,10 @@ def evidence(repo, base, tip, branch):
                 True,
                 f"rebase-merged: {len(cherry)} commits patch-equivalent in {base}",
             )
+        # Exit 0 = clean merge, 1 = conflict, other = error or Git older than 2.38.
+        sim = git(repo, "merge-tree", "--write-tree", base, tip)
+        if sim.returncode == 0 and sim.stdout.split()[:1] == [base_tree]:
+            return True, f"merge adds nothing: merging into {base} changes no files"
         diff = out(repo, "diff", "--no-ext-diff", "--no-textconv", mb, tip)
         if diff.strip():
             pid = git(repo, "patch-id", "--stable", stdin=diff).stdout.split()[:1]
